@@ -29,27 +29,25 @@ This is obviously very specific to my own workflow and preferences (the `super` 
 
 ### The Prompt
 
-```
-I'd like to try a new project. This will be pretty ambitious, so I'll definitely need lots of help with the Elisp. But it's important that the experience be as educational as it is productive; I want to come away with a better understanding of Emacs and Elisp just as much as I want to come away with a working piece of software.
-
-* The Background and the Problem
-
-From time to time I like to read through document sets that have been made available by government agencies through FOIA, by the National Archives, by presidential libraries, etc. These usually take the form of lots of small pdf files with nondescriptive names (for example, with the JFK Assassination Records releases, something like "104-10071-10021.pdf"). I love to read these, not to try and piece together some conspiracy theory, but for the incredible, granular glimpses into history they provide. But there are some pain points:
-
-- for such a multitude of such small documents, simply opening, closing, navigating to the next, etc., takes up a significant amount of time and consistently breaks flow
-- keeping track of what I've read and what I haven't becomes difficult when the sets are so large; renaming so many files in a meaningful way is impossible and probably pointless, since I'm unlikely to revisit any particular file; this isn't an academic project but an exercise in historical immersion (sort of)
-- I would like to take notes on the files, using my typical org-mode "TOREAD/READING/READ" system, but making a headline for each file would be very tedious
-
-* The Solution
-
-It occurs to me that Emacs would be an ideal environment in which to construct a workflow that would solve each pain point and provide a unified interface for navigating, reading, tracking, and taking notes on these files in a smooth, streamlined way. This would involve:
-
-- a standard window layout: in fullscreen (my monitor is 1920x1080), this would be: a narrow Dired buffer on the far left, listing the files (which are collected in a directory); a pdf-view buffer directly to the right, showing the document; and on the right side of the frame, an org-mode buffer containing my notes, with maybe a second buffer below as needed for web searches, other notes, etc.
-- a set of keybindings and functions for navigation and behavior:
-  - `s-n` would advance to the next file in the directory, opening it in the document window (killing the document buffer currently displayed), `s-p` would open the previous document, and `s-r` would open a random document in the directory 
-  - `F8` would, as in other contexts in my Emacs config, scroll or page forward, but at the end of a document would advance to the next document as if `s-n` had been pressed; `F7` the same, backward
-  - when a document is opened, either move point in the org-mode buffer to an existing "TOREAD/READING/READ" headline containing the filename, or, if one doesn't exist, append a new headline to the file: "* TOREAD {filename}", moving point there (I should be able to navigate and edit anywhere in the org file in the meantime, but any change in the active document in the pdf-view buffer should snap point to its associated headline)
-  - in all of these operations, point shouldn't move from the org buffer (other than what's momentarily necessary to execute a step in a function, and then it should always return to the org buffer)
-
-Based on my limited knowledge of Elisp and Emacs, my guess is that this would be best achieved by creating a minor mode? I don't know how else (or how, really) to coordinate behavior between different windows showing buffers in different modes. Anyway, is this feasible? If so, how would you suggest attacking it?
-```
+> I'd like to try a new project. This will be pretty ambitious, so I'll definitely need lots of help with the Elisp. But it's important that the experience be as educational as it is productive; I want to come away with a better understanding of Emacs and Elisp just as much as I want to come away with a working piece of software.
+>
+> * The Background and the Problem
+>
+> From time to time I like to read through document sets that have been made available by government agencies through FOIA, by the National Archives, by presidential libraries, etc. These usually take the form of lots of small pdf files with nondescriptive names (for example, with the JFK Assassination Records releases, something like "104-10071-10021.pdf"). I love to read these, not to try and piece together some conspiracy theory, but for the incredible, granular glimpses into history they provide. But there are some pain points:
+>
+> - for such a multitude of such small documents, simply opening, closing, navigating to the next, etc., takes up a significant amount of time and consistently breaks flow
+> - keeping track of what I've read and what I haven't becomes difficult when the sets are so large; renaming so many files in a meaningful way is impossible and probably pointless, since I'm unlikely to revisit any particular file; this isn't an academic project but an exercise in historical immersion (sort of)
+> - I would like to take notes on the files, using my typical org-mode "TOREAD/READING/READ" system, but making a headline for each file would be very tedious
+>
+> * The Solution
+>
+> It occurs to me that Emacs would be an ideal environment in which to construct a workflow that would solve each pain point and provide a unified interface for navigating, reading, tracking, and taking notes on these files in a smooth, streamlined way. This would involve:
+> 
+> - a standard window layout: in fullscreen (my monitor is 1920x1080), this would be: a narrow Dired buffer on the far left, listing the files (which are collected in a directory); a pdf-view buffer directly to the right, showing the document; and on the right side of the frame, an org-mode buffer containing my notes, with maybe a second buffer below as needed for web searches, other notes, etc.
+> - a set of keybindings and functions for navigation and behavior:
+>   - `s-n` would advance to the next file in the directory, opening it in the document window (killing the document buffer currently displayed), `s-p` would open the previous document, and `s-r` would open a random document in the directory 
+>   - `F8` would, as in other contexts in my Emacs config, scroll or page forward, but at the end of a document would advance to the next document as if `s-n` had been pressed; `F7` the same, backward
+>   - when a document is opened, either move point in the org-mode buffer to an existing "TOREAD/READING/READ" headline containing the filename, or, if one doesn't exist, append a new headline to the file: "* TOREAD {filename}", moving point there (I should be able to navigate and edit anywhere in the org file in the meantime, but any change in the active document in the pdf-view buffer should snap point to its associated headline)
+>   - in all of these operations, point shouldn't move from the org buffer (other than what's momentarily necessary to execute a step in a function, and then it should always return to the org buffer)
+>
+> Based on my limited knowledge of Elisp and Emacs, my guess is that this would be best achieved by creating a minor mode? I don't know how else (or how, really) to coordinate behavior between different windows showing buffers in different modes. Anyway, is this feasible? If so, how would you suggest attacking it?
